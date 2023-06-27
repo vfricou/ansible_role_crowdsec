@@ -1,0 +1,54 @@
+---
+- name: 'Import debian crowdsec install tasks'
+  when: ansible_os_family == 'Debian'
+  tags:
+    - install
+  ansible.builtin.import_tasks: crowdsec/install/debian/main.yml
+
+#- name: 'Import rhel crowdsec install tasks'
+#  when: ansible_os_family == 'RedHat'
+#  ansible.builtin.import_tasks: crowdsec/install/rhel/main.yml
+
+- name: 'Crowdsec | Update hub'
+  become: true
+  become_user: 'root'
+  changed_when: false
+  tags:
+    - install
+  ansible.builtin.command:
+    cmd: 'cscli hub update'
+
+- name: 'Crowdsec | Upgrade hub'
+  become: true
+  become_user: 'root'
+  changed_when: false
+  tags:
+    - install
+  ansible.builtin.command:
+    cmd: 'cscli hub upgrade'
+
+- name: 'Crowdsec | Install bash completion'
+  become: true
+  become_user: 'root'
+  register: 'cs_bash_completion_result'
+  changed_when: "'# bash completion for' not in cs_bash_completion_result"
+  failed_when: "'Error' in cs_bash_completion_result"
+  ansible.builtin.command:
+    cmd: "cscli completion bash | tee /etc/bash_completion.d/cscli"
+
+- name: 'Crowdsec | Register to central'
+  become: true
+  become_user: 'root'
+  tags:
+    - crowdsec_enroll
+  when: crowdsec_enroll_token is defined
+  notify: 'Restart crowdsec'
+  ansible.builtin.command:
+    cmd: 'cscli console enroll {{ crowdsec_enroll_token }}'
+
+- name: 'Import configuration'
+  become: true
+  become_user: 'root'
+  tags:
+    - configure
+  ansible.builtin.import_tasks: crowdsec/configure/main.yml

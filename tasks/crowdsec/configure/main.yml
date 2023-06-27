@@ -1,0 +1,69 @@
+---
+- name: 'Crowdsec | Configuration | Install default collections'
+  tags:
+    - configure
+    - crowdsec_configure
+  loop: '{{ crowdsec.collections }}'
+  register: default_collection_install
+  changed_when: "'overwrite' not in default_collection_install.stderr"
+  notify: 'Restart crowdsec'
+  ansible.builtin.command:
+    cmd: 'cscli collections install {{ item }}'
+
+- name: 'Crowdsec | Configuration | Install additional collections'
+  tags:
+    - configure
+    - crowdsec_configure
+  loop: '{{ crowdsec_additional_collections }}'
+  register: add_collection_install
+  changed_when: "'overwrite' not in add_collection_install.stderr"
+  when: crowdsec_additional_collections is defined
+  notify: 'Restart crowdsec'
+  ansible.builtin.command:
+    cmd: 'cscli collections install {{ item }}'
+
+- name: 'Crowdsec | Configuration | Install default scenarios'
+  tags:
+    - configure
+    - crowdsec_configure
+  loop: '{{ crowdsec.scenarios }}'
+  register: default_scenarios_install
+  changed_when: "'overwrite' not in default_scenarios_install.stderr"
+  notify: 'Restart crowdsec'
+  ansible.builtin.command:
+    cmd: 'cscli scenarios install {{ item }}'
+
+- name: 'Crowdsec | Configuration | Install additional scenarios'
+  tags:
+    - configure
+    - crowdsec_configure
+  loop: '{{ crowdsec_additional_scenarios }}'
+  register: add_scenarios_install
+  changed_when: "'overwrite' not in add_scenarios_install.stderr"
+  when: crowdsec_additional_scenarios is defined
+  notify: 'Restart crowdsec'
+  ansible.builtin.command:
+    cmd: 'cscli scenarios install {{ item }}'
+
+- name: 'Crowdsec | Configuration | Install default parsers'
+  tags:
+    - configure
+    - crowdsec_configure
+  loop: '{{ crowdsec.parsers }}'
+  register: default_parsers_install
+  changed_when: "'overwrite' not in default_parsers_install.stderr"
+  notify: 'Restart crowdsec'
+  ansible.builtin.command:
+    cmd: 'cscli parsers install {{ item }}'
+
+- name: 'Crowdsec | Configuration | Install additionnal parsers'
+  tags:
+    - configure
+    - crowdsec_configure
+  loop: '{{ crowdsec_additional_parsers }}'
+  register: add_parsers_install
+  changed_when: "'overwrite' not in add_parsers_install.stderr"
+  when: crowdsec_additional_parsers is defined
+  notify: 'Restart crowdsec'
+  ansible.builtin.command:
+    cmd: 'cscli parsers install {{ item }}'

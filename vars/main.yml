@@ -21,3 +21,89 @@ supported_platforms:
     versions:
       - 8
       - 9
+
+# Requirements
+packages:
+  requirements:
+    debian:
+      - curl
+      - gnupg
+      - debian-archive-keyring
+      - apt-transport-https
+
+debian:
+  dpkg_opts: 'force-confold'
+# Crowdsec
+crowdsec:
+  debian:
+    packages:
+      - crowdsec
+      - crowdsec-firewall-bouncer-iptables
+      - crowdsec-blocklist-mirror
+    gpg_url: 'https://packagecloud.io/crowdsec/crowdsec/gpgkey'
+    repo_url: 'https://packagecloud.io/crowdsec/crowdsec/debian/'
+
+  rhel:
+    packages:
+      - crowdsec
+      - crowdsec-blocklist-mirror
+      - crowdsec-firewall-bouncer-nftables
+
+  scenarios:
+    - crowdsecurity/CVE-2019-18935
+    - crowdsecurity/CVE-2021-4034
+    - crowdsecurity/CVE-2022-26134
+    - crowdsecurity/CVE-2022-35914
+    - crowdsecurity/CVE-2022-37042
+    - crowdsecurity/CVE-2022-40684
+    - crowdsecurity/CVE-2022-41082
+    - crowdsecurity/CVE-2022-41697
+    - crowdsecurity/CVE-2022-42889
+    - crowdsecurity/CVE-2022-44877
+    - crowdsecurity/CVE-2022-46169
+    - crowdsecurity/CVE-2023-23397
+    - crowdsecurity/auditd-base64-exec-behavior
+    - crowdsecurity/auditd-postexploit-exec-from-net
+    - crowdsecurity/auditd-postexploit-pkill
+    - crowdsecurity/auditd-postexploit-rm
+    - crowdsecurity/auditd-sus-exec
+    - crowdsecurity/ban-defcon-drop_range
+    - crowdsecurity/endlessh-bf
+    - crowdsecurity/iptables-scan-multi_ports
+    - crowdsecurity/ssh-bf
+    - crowdsecurity/ssh-slow-bf
+    - firewallservices/pf-scan-multi_ports
+
+  collections:
+    - crowdsecurity/auditd
+    - crowdsecurity/aws-cis-benchmark
+    - crowdsecurity/base-http-scenarios
+    - crowdsecurity/endlessh
+    - crowdsecurity/http-cve
+    - crowdsecurity/iptables
+    - crowdsecurity/linux
+    - crowdsecurity/linux-lpe
+    - crowdsecurity/modsecurity
+    - crowdsecurity/nginx
+    - crowdsecurity/nginx-proxy-manager
+    - crowdsecurity/postfix
+    - crowdsecurity/sshd
+    - crowdsecurity/whitelist-good-actors
+    - openappsec/openappsec
+
+  parsers:
+    - crowdsecurity/auditd-logs
+    - crowdsecurity/endlessh-logs
+    - crowdsecurity/geoip-enrich
+    - crowdsecurity/http-logs
+    - crowdsecurity/iptables-logs
+    - crowdsecurity/nginx-logs
+    - crowdsecurity/nginx-proxy-manager-logs
+    - crowdsecurity/pam-logs
+    - crowdsecurity/pkexec-logs
+    - crowdsecurity/postfix-logs
+    - crowdsecurity/sshd-logs
+    - crowdsecurity/syslog-logs
+    - crowdsecurity/sysmon-logs
+    - crowdsecurity/tcpdump-logs
+    - crowdsecurity/whitelists

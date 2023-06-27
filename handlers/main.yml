@@ -1,0 +1,12 @@
+---
+- name: 'Restart crowdsec'
+  become: true
+  become_user: 'root'
+  loop:
+    - crowdsec
+    - crowdsec-firewall-bouncer
+  ansible.builtin.systemd:
+    name: '{{ item }}'
+    state: restarted
+    enabled: true
+    daemon_reload: true

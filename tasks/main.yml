@@ -1,3 +1,11 @@
 ---
 - name: 'Import validator tasks'
   ansible.builtin.import_tasks: validator/main.yml
+
+- name: 'Import prerequisites tasks'
+  tags:
+    - always
+  ansible.builtin.import_tasks: prerequisites/main.yml
+
+- name: 'Import crowdsec tasks'
+  ansible.builtin.import_tasks: crowdsec/main.yml

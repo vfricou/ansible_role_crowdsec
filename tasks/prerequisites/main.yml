@@ -1,0 +1,6 @@
+---
+- name: 'Import debian based os tasks'
+  become: true
+  become_user: 'root'
+  when: ansible_os_family == 'Debian'
+  ansible.builtin.import_tasks: prerequisites/debian/main.yml

@@ -1,0 +1,24 @@
+---
+- name: 'Crowdsec | Install | Debian | Import crowdsec repository gpg key'
+  become: true
+  become_user: 'root'
+  ansible.builtin.apt_key:
+    url: '{{ crowdsec.debian.gpg_url }}'
+    state: present
+    keyring: '/etc/apt/trusted.gpg.d/crowdsec.gpg'
+
+- name: 'Crowdsec | Install | Debian | Define apt repository'
+  become: true
+  become_user: 'root'
+  ansible.builtin.apt_repository:
+    repo: 'deb {{ crowdsec.debian.repo_url }} {{ ansible_distribution_release }} main'
+    state: present
+    filename: crowdsec
+
+- name: 'Crowdsec | Install | Debian | Install packages'
+  become: true
+  become_user: 'root'
+  ansible.builtin.apt:
+    name: '{{ crowdsec.debian.packages }}'
+    state: present
+    dpkg_options: '{{ debian.dpkg_opts }}'

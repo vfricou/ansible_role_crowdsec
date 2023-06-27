@@ -1,0 +1,6 @@
+---
+- name: 'Prerequisites | Debian | Ensure required packages was installed'
+  ansible.builtin.apt:
+    update_cache: true
+    name: '{{ packages.requirements.debian }}'
+    state: present
