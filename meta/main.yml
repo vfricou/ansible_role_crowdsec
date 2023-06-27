@@ -1,0 +1,22 @@
+galaxy_info:
+  author: 'Vincent Fricou'
+  role_name: 'crowdsec_agent'
+  namespace: 'vfricou'
+  description: 'Install and configure crowdsec agent'
+  issue_tracker_url: https://github.com/vfricou/ansible_role_crowdsec
+  license: 'MIT'
+  min_ansible_version: '2.10'
+  platforms:
+    - name: 'EL'
+      versions:
+        - '7'
+        - '8'
+        - '9'
+    - name: 'Debian'
+      versions:
+        - buster
+        - bullseye
+        - bookworm
+
+  galaxy_tags: []
+dependencies: []
