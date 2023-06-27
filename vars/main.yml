@@ -38,7 +38,7 @@ crowdsec:
   debian:
     packages:
       - crowdsec
-      - crowdsec-firewall-bouncer-iptables
+      - crowdsec-firewall-bouncer-nftables
       - crowdsec-blocklist-mirror
     gpg_url: 'https://packagecloud.io/crowdsec/crowdsec/gpgkey'
     repo_url: 'https://packagecloud.io/crowdsec/crowdsec/debian/'
