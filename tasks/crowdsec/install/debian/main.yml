@@ -22,3 +22,11 @@
     name: '{{ crowdsec.debian.packages }}'
     state: present
     dpkg_options: '{{ debian.dpkg_opts }}'
+
+- name: 'Crowdsec | Install | Debian | Install bouncers'
+  become: true
+  become_user: 'root'
+  ansible.builtin.apt:
+    name: '{{ crowdsec.debian.pkg_bouncer }}'
+    state: present
+    dpkg_options: '{{ debian.dpkg_opts }}'

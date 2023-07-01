@@ -3,6 +3,7 @@
   when: ansible_os_family == 'Debian'
   tags:
     - install
+    - crowdsec_install
   ansible.builtin.import_tasks: crowdsec/install/debian/main.yml
 
 #- name: 'Import rhel crowdsec install tasks'
@@ -15,6 +16,7 @@
   changed_when: false
   tags:
     - install
+    - crowdsec_install
   ansible.builtin.command:
     cmd: 'cscli hub update'
 
@@ -24,6 +26,7 @@
   changed_when: false
   tags:
     - install
+    - crowdsec_install
   ansible.builtin.command:
     cmd: 'cscli hub upgrade'
 
@@ -51,4 +54,5 @@
   become_user: 'root'
   tags:
     - configure
+    - crowdsec_configure
   ansible.builtin.import_tasks: crowdsec/configure/main.yml
